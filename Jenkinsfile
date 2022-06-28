@@ -4,33 +4,35 @@ pipeline {
       image 'maven:3-alpine'
       args '-v /home/lighthouse/jekins.m2:/root/.m2'
     }
-
   }
+
   stages {
     stage('Build') {
       steps {
-        sh 'mvn  clean package -Dmaven.test.skip=true'
+        sh 'mvn -version'
+        echo 'build success'
       }
     }
 
     stage('Test') {
+      steps {
+            sh 'mvn test'
+            echo 'test success'
+         }
       post {
         always {
-          junit 'target/surefire-reports/*.xml'
+           echo 'always-0'
+           echo 'always-1'
         }
 
-      }
-      steps {
-        sh 'mvn test'
       }
     }
 
     stage('input') {
       steps {
-        input 'input '
+        input 'input message'
         sh 'mvn -version'
       }
     }
-
   }
 }
