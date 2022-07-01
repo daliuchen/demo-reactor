@@ -2,6 +2,7 @@
 style:
 	@echo "格式化文件"
 ## test
+test:
 	mvn test
 ## package
 package:

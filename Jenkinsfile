@@ -8,6 +8,7 @@ pipeline {
 
   stages {
     stage('style') {
+      agent any
       steps {
         sh 'make style'
       }
