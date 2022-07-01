@@ -2,33 +2,29 @@ pipeline {
   agent {
     docker {
       image 'maven:3-alpine'
-      args '-v /home/lighthouse/jekins.m2:/root/.m2'
+      args '-v /home/lighthouse/jekins/.m2:/root/.m2'
     }
   }
 
   stages {
-    stage('Build') {
+    stage('style') {
       steps {
-        sh 'mvn -version'
-        echo 'build success'
+        sh 'make style'
       }
     }
-
     stage('Test') {
       steps {
-            echo 'Test '
-            echo 'test success'
+           sh 'make test'
          }
       post {
         always {
-           echo 'always-0'
-           echo 'always-1'
+           echo '测试stop的always操作'
         }
 
       }
     }
 
-    stage('input') {
+    stage('deploy') {
       steps {
         input 'input message'
         sh 'mvn -version'
